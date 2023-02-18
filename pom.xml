@@ -9,10 +9,10 @@
         <version>3.0.2</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>org.example</groupId>
+    <groupId>com.stupin</groupId>
     <artifactId>Car-service-and-wash</artifactId>
     <version>1.0</version>
-
+    <packaging>jar</packaging>
     <description>Car service nad wash create using spring boot ande REST API</description>
     <properties>
         <java.version>17</java.version>
