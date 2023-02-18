@@ -39,20 +39,21 @@
 <div class="card bg-light">
     <article class="card-body mx-auto" style="max-width: 400px;">
         <h4 class="card-title mt-3 text-center">Log in</h4>
-        <p th:if="${loginError}" class="error">Wrong email or password</p>
-        <form th:action="@{/login}" method="post">
+        <h5 class="card-title mt-3 text-center" >Wrong email or password!!!</h5>
+        <form>
             <div class="form-group input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
                 </div>
-                <input type="text" id="username" name="username" autofocus="autofocus" /> <br />
+                <input type="email" th:field="*{email}" class="form-control" placeholder="Email address">
             </div>
             <div class="form-group input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
                 </div>
-                <input type="password" id="password" name="password" /> <br />
+                <input type="password" th:field="*{password}" class="form-control" placeholder="Enter password">
             </div>
+
             <div class="form-group">
                 <button type="submit" class="btn btn-primary btn-block"> Login</button>
             </div>

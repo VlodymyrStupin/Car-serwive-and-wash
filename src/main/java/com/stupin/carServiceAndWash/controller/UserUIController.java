@@ -31,7 +31,7 @@ public class UserUIController {
         return "home";
     }
 
-    @GetMapping("/user")
+    @GetMapping("user")
     public String viewLoginUserPage() {
         return "user_page";
     }

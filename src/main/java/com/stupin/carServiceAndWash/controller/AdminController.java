@@ -20,7 +20,7 @@ public class AdminController {
 
     @GetMapping("/")
     public String viewLoginAdminPage() {
-        return "admin_page";
+        return "admin/admin_page";
     }
 
     @GetMapping("/add-service")
@@ -35,4 +35,6 @@ public class AdminController {
 //        model.addAttribute("services", services);
 //        return "admin/add_services_page";
 //    }
+
+//    /ui/admin/
 }

@@ -4,7 +4,7 @@ import com.stupin.carServiceAndWash.dao.User;
 import com.stupin.carServiceAndWash.dto.UserDto;
 
 public class UserConverter {
-    public static User fromEntity(UserDto entity) {
+    public static User fromDto(UserDto entity) {
         return new User(
                 entity.getId(),
                 entity.getName(),
@@ -14,7 +14,7 @@ public class UserConverter {
                 entity.getPhoneNumber());
     }
 
-    public static UserDto toEntity(User user) {
+    public static UserDto toDto(User user) {
         return new UserDto(
                 user.getId(),
                 user.getName(),

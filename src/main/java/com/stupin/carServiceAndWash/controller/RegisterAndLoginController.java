@@ -1,6 +1,7 @@
 package com.stupin.carServiceAndWash.controller;
 
 import com.stupin.carServiceAndWash.dao.User;
+import com.stupin.carServiceAndWash.dto.UserDto;
 import com.stupin.carServiceAndWash.repository.UserRepository;
 import com.stupin.carServiceAndWash.service.UserService;
 import org.apache.logging.log4j.LogManager;
@@ -11,7 +12,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import static com.stupin.carServiceAndWash.converter.UserConverter.toEntity;
+import java.util.Objects;
+
+import static com.stupin.carServiceAndWash.converter.UserConverter.toDto;
 
 @Controller
 public class RegisterAndLoginController {
@@ -50,7 +53,8 @@ public class RegisterAndLoginController {
         user.setPassword(encodedPassword);
         user.setName(name);
         user.setSurname(surname);
-        userRepository.save(toEntity(user));
+        user.setEnabled(1);
+        userRepository.save(toDto(user));
         return "redirect:/register-success";
     }
 
@@ -58,15 +62,26 @@ public class RegisterAndLoginController {
     public String getSuccessRegisterPage() {
         return "register/register_success";
     }
+
     @GetMapping("/register-error")
     public String getRegistrationErrorPage() {
         return "register/register_error";
     }
 
 
-    @GetMapping("/login")
-    public String getLoginPage() {
+    @RequestMapping("/login")
+    public String login() {
+        return "login_page";
+    }
 
+    @PostMapping("process-login")
+    public String processLogin() {
+        return "redirect:/ui/users/user";
+    }
+
+    @GetMapping("/login-error")
+    public String loginError(Model model) {
+        model.addAttribute("loginError", true);
         return "login_page";
     }
 }
