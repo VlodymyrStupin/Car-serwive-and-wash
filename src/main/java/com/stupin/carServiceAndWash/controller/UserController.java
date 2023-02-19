@@ -1,6 +1,6 @@
 package com.stupin.carServiceAndWash.controller;
 
-import com.stupin.carServiceAndWash.dao.User;
+import com.stupin.carServiceAndWash.dto.User;
 import com.stupin.carServiceAndWash.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

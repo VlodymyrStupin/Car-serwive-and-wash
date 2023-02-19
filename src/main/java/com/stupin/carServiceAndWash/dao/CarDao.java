@@ -1,4 +1,4 @@
-package com.stupin.carServiceAndWash.dto;
+package com.stupin.carServiceAndWash.dao;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -12,7 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 @Table(name = "cars")
-public class CarDto {
+public class CarDao {
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "UUID")
@@ -33,9 +33,9 @@ public class CarDto {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
-    private UserDto userDto;
+    private UserDao userDao;
 
-    @OneToMany(mappedBy = "carDto", cascade = CascadeType.ALL)
-    private final List<CarPartDto> carParts = new ArrayList<>();
+    @OneToMany(mappedBy = "carDao", cascade = CascadeType.ALL)
+    private final List<CarPartDao> carParts = new ArrayList<>();
 
 }

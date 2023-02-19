@@ -1,8 +1,8 @@
 package com.stupin.carServiceAndWash.repository;
 
-import com.stupin.carServiceAndWash.dto.CarDto;
+import com.stupin.carServiceAndWash.dao.CarDao;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
-public interface CarRepository extends JpaRepository<CarDto, String> {
+public interface CarRepository extends JpaRepository<CarDao, String> {
 }

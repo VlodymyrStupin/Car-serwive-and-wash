@@ -1,6 +1,6 @@
 package com.stupin.carServiceAndWash.controller;
 
-import com.stupin.carServiceAndWash.dao.User;
+import com.stupin.carServiceAndWash.dto.User;
 import com.stupin.carServiceAndWash.repository.UserRepository;
 import com.stupin.carServiceAndWash.service.UserService;
 import org.apache.logging.log4j.LogManager;

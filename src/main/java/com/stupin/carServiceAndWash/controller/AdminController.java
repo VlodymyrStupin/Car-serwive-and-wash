@@ -1,6 +1,6 @@
 package com.stupin.carServiceAndWash.controller;
 
-import com.stupin.carServiceAndWash.dao.Service;
+import com.stupin.carServiceAndWash.dto.Service;
 import com.stupin.carServiceAndWash.service.ServiceService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

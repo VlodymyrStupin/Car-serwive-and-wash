@@ -1,4 +1,4 @@
-package com.stupin.carServiceAndWash.dao;
+package com.stupin.carServiceAndWash.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Email {
-    private String recipient;
-    private String msgBody;
+    private String to;
     private String subject;
+    private String text;
     private String attachment;
 }

@@ -1,7 +1,6 @@
 package com.stupin.carServiceAndWash.controller;
 
-import com.stupin.carServiceAndWash.dao.User;
-import com.stupin.carServiceAndWash.dto.UserDto;
+import com.stupin.carServiceAndWash.dto.User;
 import com.stupin.carServiceAndWash.repository.UserRepository;
 import com.stupin.carServiceAndWash.service.UserService;
 import org.apache.logging.log4j.LogManager;
@@ -11,8 +10,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Objects;
 
 import static com.stupin.carServiceAndWash.converter.UserConverter.toDto;
 

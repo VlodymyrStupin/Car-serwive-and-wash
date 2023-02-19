@@ -17,6 +17,7 @@ public class EmailSenderController {
     @GetMapping("/send")
     public String sendEmail() {
 //create page with field to send email
+//        Email email= new Email()
 //        emailSenderService.sendSimpleMail();
         return "home";
     }

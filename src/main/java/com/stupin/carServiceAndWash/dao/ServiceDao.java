@@ -1,4 +1,4 @@
-package com.stupin.carServiceAndWash.dto;
+package com.stupin.carServiceAndWash.dao;
 
 
 import lombok.Getter;
@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Table(name = "calculator")
-public class ServiceDto {
+public class ServiceDao {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")

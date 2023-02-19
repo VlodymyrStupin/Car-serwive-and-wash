@@ -1,6 +1,6 @@
-package com.stupin.carServiceAndWash.dao;
+package com.stupin.carServiceAndWash.dto;
 
-import com.stupin.carServiceAndWash.dto.UserDto;
+import com.stupin.carServiceAndWash.dao.UserDao;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -8,9 +8,9 @@ import java.util.Collection;
 
 public class CustomUserDetails implements UserDetails {
 
-    private UserDto user;
+    private UserDao user;
 
-    public CustomUserDetails(UserDto user) {
+    public CustomUserDetails(UserDao user) {
         this.user = user;
     }
 

@@ -1,4 +1,4 @@
-package com.stupin.carServiceAndWash.dao;
+package com.stupin.carServiceAndWash.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package com.stupin.carServiceAndWash.dto;
+package com.stupin.carServiceAndWash.dao;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Table(name = "car_parts")
-public class CarPartDto {
+public class CarPartDao {
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "UUID")
@@ -26,13 +26,13 @@ public class CarPartDto {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "car_entity")
-    private CarDto carDto;
+    private CarDao carDao;
 
-    public CarDto getCarDto() {
-        return carDto;
+    public CarDao getCarDao() {
+        return carDao;
     }
 
-    public void setCarDto(CarDto carDto) {
-        this.carDto = carDto;
+    public void setCarDao(CarDao carDao) {
+        this.carDao = carDao;
     }
 }

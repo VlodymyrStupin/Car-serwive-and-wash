@@ -1,4 +1,4 @@
-package com.stupin.carServiceAndWash.dto;
+package com.stupin.carServiceAndWash.dao;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +15,7 @@ import java.util.List;
 @Entity
 @Table(name = "users")
 @NoArgsConstructor
-public class UserDto {
+public class UserDao{
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
@@ -36,10 +36,10 @@ public class UserDto {
     @Column
     private String role = "ROLE_USER";
 
-    @OneToMany(mappedBy = "userDto", cascade = CascadeType.ALL)
-    private List<CarDto> cars = new ArrayList<>();
+    @OneToMany(mappedBy = "userDao", cascade = CascadeType.ALL)
+    private List<CarDao> cars = new ArrayList<>();
 
-    public UserDto(Integer id, String name, String surname, String email,
+    public UserDao(Integer id, String name, String surname, String email,
                    String password, String phoneNumber) {
         this.id = id;
         this.name = name;
@@ -49,11 +49,11 @@ public class UserDto {
         this.phoneNumber = phoneNumber;
     }
 
-    public List<CarDto> getCarEntities() {
+    public List<CarDao> getCarEntities() {
         return cars;
     }
 
-    public void setCarEntities(List<CarDto> carEntities) {
+    public void setCarEntities(List<CarDao> carEntities) {
         this.cars = carEntities;
     }
 }

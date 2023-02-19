@@ -1,4 +1,4 @@
-package com.stupin.carServiceAndWash.dao;
+package com.stupin.carServiceAndWash.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,4 +28,5 @@ public class User {
         this.password = password;
         this.phoneNumber = phoneNumber;
     }
+
 }

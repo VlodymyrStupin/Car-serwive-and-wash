@@ -1,6 +1,6 @@
 package com.stupin.carServiceAndWash.service;
 
-import com.stupin.carServiceAndWash.dao.Service;
+import com.stupin.carServiceAndWash.dto.Service;
 import com.stupin.carServiceAndWash.repository.ServiceRepository;
 
 import java.util.ArrayList;

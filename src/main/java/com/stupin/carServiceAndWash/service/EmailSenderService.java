@@ -1,5 +1,6 @@
 package com.stupin.carServiceAndWash.service;
 
+import com.stupin.carServiceAndWash.dto.Email;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
@@ -19,12 +20,12 @@ public class EmailSenderService {
     @Value("${spring.mail.username}")
     private String sender;
 
-    public void sendSimpleMail(String to, String subject, String text) {
+    public void sendSimpleMail(Email email) {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setFrom(sender);
-        mailMessage.setTo(to);
-        mailMessage.setSubject(subject);
-        mailMessage.setText(text);
+        mailMessage.setTo(email.getTo());
+        mailMessage.setSubject(email.getSubject());
+        mailMessage.setText(email.getText());
         javaMailSender.send(mailMessage);
     }
 }
