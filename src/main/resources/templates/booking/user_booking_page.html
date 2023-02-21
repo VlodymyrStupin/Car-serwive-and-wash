@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="en">
+<head>
+    <title>W3.CSS Template</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css"/>
+    <link rel="stylesheet" href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="/static/css/user_page.css"/>
+
+    <style>
+    html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
+    .w3-sidebar {
+      z-index: 3;
+      width: 250px;
+      top: 43px;
+      bottom: 0;
+      height: inherit;
+    }
+    .footer-position{
+      position: absolute;
+      bottom: 0;
+      left:
+      transform: translate(-50%, -50%);
+      width: 100%
+    }
+      .bootstrap-iso
+        .formden_header h2,
+        .bootstrap-iso
+        .formden_header p,
+        .bootstrap-iso form{font-family: Arial, Helvetica, sans-serif; color: black}
+        .bootstrap-iso form button,
+        .bootstrap-iso form button:hover{color: white !important;}
+        .bootstrap-iso
+        .form-control:focus  { border-color: #64b5f6;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(100, 181, 246, 0.6);
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(100, 181, 246, 0.6);}
+        .asteriskField{color: red;}.bootstrap-iso form
+        .input-group-addon {
+        color:#555555;
+        background-color: #b3aeae;
+        border-radius: 4px;
+        padding-left:12px
+        }
+
+         .div-form{
+     padding-top: 12px;
+     padding-bottom: 12px;
+     text-align: left;
+    }
+
+
+
+
+
+
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="w3-top">
+    <div class="w3-bar w3-theme w3-top w3-left-align w3-large">
+        <a class="w3-bar-item w3-button w3-right w3-hide-large w3-hover-white w3-large w3-theme-l1"
+           href="javascript:void(0)" onclick="w3_open()"><i class="fa fa-bars"></i></a>
+        <a th:href="@{/}" class="w3-bar-item w3-button w3-theme-l1">Home</a>
+        <a th:href="@{/about}" class="w3-bar-item w3-button w3-hide-small w3-hover-white">About</a>
+        <a th:href="@{/calculator}" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Price</a>
+        <a th:href="@{/contact}" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Contact</a>
+        <a th:href="@{/logout}" class="w3-bar-item w3-button w3-hide-small w3-hide-medium w3-hover-white w3-right">
+            Log Out</a>
+    </div>
+</div>
+
+<!-- Sidebar -->
+<nav class="w3-sidebar w3-bar-block w3-collapse w3-large w3-theme-l5 w3-animate-left" id="mySidebar">
+    <a href="javascript:void(0)" onclick="w3_close()"
+       class="w3-right w3-xlarge w3-padding-large w3-hover-black w3-hide-large" title="Close Menu">
+        <i class="fa fa-remove"></i>
+    </a>
+    <h4 class="w3-bar-item"><b>Menu</b></h4>
+    <a class="w3-bar-item w3-button w3-hover-black" th:href="@{'/ui/users/'+${user.id}}">Your profile</a>
+    <a class="w3-bar-item w3-button w3-hover-black" th:href="@{garage}">Your garage</a>
+    <a class="w3-bar-item w3-button w3-hover-black" th:href="@{booking}">Booking</a>
+</nav>
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu"
+     id="myOverlay"></div>
+
+<!-- Main content: shift it to the right by 250 pixels when the sidebar is visible -->
+<div class="w3-main" style="margin-left:250px">
+    <p></p>
+    <div class="bootstrap-iso ">
+        <div class="container-fluid div-form">
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="formden_header">
+                        <h2>
+                            Booking
+                        </h2>
+                        <p></p>
+                    </div>
+                    <form th:action="@{booking}" th:object="${booking}" method="post">
+                        <div class="form-group ">
+                            <label class="control-label requiredField" for="email"> Email(optional) </label>
+                            <input th:object="${user}" class="form-control" id="email" name="email"
+                                   placeholder="Enter email" type="text" th:field="*{email}"/>
+                        </div>
+
+                        <!--                        <div class="form-group ">-->
+                        <!--                            <label class="control-label requiredField">-->
+                        <!--                                Select product-->
+                        <!--                                <span class="asteriskField">*</span>-->
+                        <!--                            </label>-->
+                        <!--                            <div class=" ">-->
+                        <!--                                <div class="checkbox">-->
+                        <!--                                    <label class="checkbox">-->
+                        <!--                                        <input name="checkbox" type="checkbox" value="Car service"/>-->
+                        <!--                                        Car service-->
+                        <!--                                    </label>-->
+                        <!--                                </div>-->
+                        <!--                                <div class="checkbox">-->
+                        <!--                                    <label class="checkbox">-->
+                        <!--                                        <input name="checkbox" type="checkbox" value="Car wash"/>-->
+                        <!--                                        Car wash-->
+                        <!--                                    </label>-->
+                        <!--                                </div>-->
+                        <!--                            </div>-->
+                        <!--                        </div>-->
+                        <div th:object="${booking}" class="form-group ">
+                            <label class="control-label requiredField" for="select">
+                                Select service
+                                <span class="asteriskField">*</span>
+                            </label>
+                            <select th:field="*{service}"class="select form-control" id="select" name="select" >
+                                <option  th:each="product : ${products}" th:value="${product.productName}"
+                                        th:text="${product.productName}">
+                                    Product name
+                            </select>
+                        </div>
+                        <div class="form-group ">
+                            <label class="control-label requiredField" for="date">
+                                Select date of appointment
+                                <span class="asteriskField">*</span>
+                            </label>
+                            <div th:object="${booking}" class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar-check-o">
+                                    </i>
+                                </div>
+                                <input class="form-control" id="date" name="date" placeholder="MM/DD/YYYY" th:field="*{date}"/>
+                            </div>
+                        </div>
+                        <div th:object="${booking}" class="form-group ">
+                            <label class="control-label " for="textarea">
+                                Describe your problem(optional)
+                            </label>
+                            <textarea class="form-control" cols="40" id="textarea" name="textarea" rows="10" th:field="*{description}"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <div>
+                                <button class="btn btn-primary " name="submit" type="submit">
+                                    Submit
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Extra JavaScript/CSS added manually in "Settings" tab -->
+<!-- Include jQuery -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<!-- Include Date Range Picker -->
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+
+<script>
+    $(document).ready(function(){
+        var date_input=$('input[name="date"]'); //our date input has the name "date"
+        var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+        date_input.datepicker({
+            format: 'mm/dd/yyyy',
+            container: container,
+            todayHighlight: true,
+            autoclose: true,
+        })
+    })
+</script>

@@ -4,17 +4,17 @@ import com.stupin.carServiceAndWash.dto.User;
 import com.stupin.carServiceAndWash.dao.UserDao;
 
 public class UserConverter {
-    public static User fromDto(UserDao entity) {
+    public static User toDto(UserDao userDao) {
         return new User(
-                entity.getId(),
-                entity.getName(),
-                entity.getSurname(),
-                entity.getEmail(),
-                entity.getPassword(),
-                entity.getPhoneNumber());
+                userDao.getId(),
+                userDao.getName(),
+                userDao.getSurname(),
+                userDao.getEmail(),
+                userDao.getPassword(),
+                userDao.getPhoneNumber());
     }
 
-    public static UserDao toDto(User user) {
+    public static UserDao toDao(User user) {
         return new UserDao(
                 user.getId(),
                 user.getName(),

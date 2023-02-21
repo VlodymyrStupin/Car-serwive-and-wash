@@ -20,7 +20,7 @@ public class EmailSenderService {
     @Value("${spring.mail.username}")
     private String sender;
 
-    public void sendSimpleMail(Email email) {
+    public void sendConfirmationBookingMail(Email email) {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setFrom(sender);
         mailMessage.setTo(email.getTo());

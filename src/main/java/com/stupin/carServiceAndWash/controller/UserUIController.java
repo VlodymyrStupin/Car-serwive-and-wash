@@ -2,23 +2,25 @@ package com.stupin.carServiceAndWash.controller;
 
 import com.stupin.carServiceAndWash.dto.User;
 import com.stupin.carServiceAndWash.repository.UserRepository;
+import com.stupin.carServiceAndWash.service.AdminService;
 import com.stupin.carServiceAndWash.service.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @Controller
 @RequestMapping("ui/users/")
 public class UserUIController {
-
+    private final Logger log = LogManager.getLogger(UserUIController.class);
     private final UserRepository userRepository;
     private final UserService userService;
-    private final Logger log = LogManager.getLogger(UserUIController.class);
+
+    private AdminService adminService;
 
     @Autowired
     public UserUIController(UserRepository userRepository, UserService userService) {
@@ -26,23 +28,45 @@ public class UserUIController {
         this.userService = userService;
     }
 
-    @GetMapping("/home")
-    public String viewHomePage() {
-        return "home";
+    @PreAuthorize("hasAuthority('USER')")
+    @GetMapping("/")
+    public String viewUserPage() {
+        return "user/user_page";
     }
 
-    @GetMapping("user")
-    public String viewLoginUserPage() {
-        return "user_page";
+
+    @PreAuthorize("hasAuthority('USER')")
+    @GetMapping("{id}/profile")
+    public String viewUserProfilePage(@PathVariable Integer userId, Model model) {
+        model.addAttribute(model.addAttribute("user", userService.getById(userId)));
+        return "user/user_profile_page";
     }
 
-    @GetMapping("/all-users")
-    public String listUsers(Model model) {
-        List<User> users = userService.getAll();
-        log.info("List of users: {}", users);
-        model.addAttribute("listUsers", users);
-        return "users";
+    @PreAuthorize("hasAuthority('USER')")
+    @PostMapping("/{id}/manage-profile")
+    public String manageUserProfile(@ModelAttribute User user,
+                                    @RequestParam String name,
+                                    @RequestParam String surname,
+                                    @RequestParam String email,
+                                    @RequestParam String phoneNumber,
+                                    @RequestParam String password) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodedPassword = passwordEncoder.encode(password);
+        user.setPassword(encodedPassword);
+        user.setEmail(email);
+        user.setPhoneNumber(phoneNumber);
+        user.setPassword(encodedPassword);
+        user.setName(name);
+        user.setSurname(surname);
+        userService.save((user));
+        return "redirect:/register-success";
     }
 
+    @PreAuthorize("hasAuthority('USER')")
+    @GetMapping("/{id}")
+    public String viewUserPage(@PathVariable("id") Integer id, Model model) {
+        model.addAttribute("user", userService.getById(id));
+        return "user/user_page";
+    }
 }
 

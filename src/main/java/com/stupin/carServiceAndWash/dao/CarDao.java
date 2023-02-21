@@ -1,41 +1,43 @@
 package com.stupin.carServiceAndWash.dao;
 
+import com.stupin.carServiceAndWash.dto.User;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
 @Setter
 @Table(name = "cars")
+@NoArgsConstructor
 public class CarDao {
     @Id
-    @Column
+    @Column(name = "vin")
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private String id;
-    @Column
-    private int odometer;
-    @Column
-    private int year;
     @Column
     private String brand;
     @Column
     private String model;
     @Column
-    private String registrationPlate;
-    @Column
-    private String vinCode;
+    private int odometer;
+    @Column(name = "production_year")
+    private int productionYear;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private UserDao userDao;
 
-    @OneToMany(mappedBy = "carDao", cascade = CascadeType.ALL)
-    private final List<CarPartDao> carParts = new ArrayList<>();
-
+    public CarDao(String id, String brand, String model, int odometer, int productionYear, UserDao userDao) {
+        this.id = id;
+        this.brand = brand;
+        this.model = model;
+        this.odometer = odometer;
+        this.productionYear = productionYear;
+        this.userDao = userDao;
+    }
 }

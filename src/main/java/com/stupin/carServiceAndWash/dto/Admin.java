@@ -1,27 +1,26 @@
 package com.stupin.carServiceAndWash.dto;
 
-import com.stupin.carServiceAndWash.dao.CarDao;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-import java.util.Set;
+import javax.persistence.Column;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class User {
+public class Admin {
     private Integer id;
+
     private String name;
+
     private String surname;
+
     private String email;
+
     private String password;
     private String phoneNumber;
-    private List<Car> cars;
 
-    public User(Integer id, String name, String surname, String email,
-                String password, String phoneNumber) {
+    public Admin(Integer id, String name, String surname, String email, String password, String phoneNumber) {
         this.id = id;
         this.name = name;
         this.surname = surname;

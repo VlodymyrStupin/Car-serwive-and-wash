@@ -1,22 +1,21 @@
 package com.stupin.carServiceAndWash.dao;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-import javax.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "users")
 @NoArgsConstructor
-public class UserDao{
+public class AdminDao {
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
@@ -35,27 +34,14 @@ public class UserDao{
     @Column
     private Integer enabled = 1;
     @Column
-    private String role = "USER";
+    private String role = "ADMIN";
 
-    @OneToMany(mappedBy = "userDao", cascade = CascadeType.ALL)
-    private List<CarDao> cars = new ArrayList<>();
-    @OneToMany(orphanRemoval = true)
-    private List<BookingDao> bookings = new ArrayList<>();
-    public UserDao(Integer id, String name, String surname, String email,
-                   String password, String phoneNumber) {
+    public AdminDao(Integer id, String name, String surname, String email, String password, String phoneNumber) {
         this.id = id;
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.password = password;
         this.phoneNumber = phoneNumber;
-    }
-
-    public List<CarDao> getCarEntities() {
-        return cars;
-    }
-
-    public void setCarEntities(List<CarDao> carEntities) {
-        this.cars = carEntities;
     }
 }

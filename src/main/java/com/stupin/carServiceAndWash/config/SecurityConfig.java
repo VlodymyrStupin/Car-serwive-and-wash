@@ -5,18 +5,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
 
@@ -25,12 +21,16 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    @Autowired
-    private DataSource dataSource;
+    private final DataSource dataSource;
+    private final CustomAuthenticationSuccessHandler successHandler;
 
     @Autowired
-    private CustomAuthenticationSuccessHandler successHandler;
+    public SecurityConfig(DataSource dataSource, CustomAuthenticationSuccessHandler successHandler) {
+        this.dataSource = dataSource;
+        this.successHandler = successHandler;
+    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -42,11 +42,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordEncoder(passwordEncoder());
     }
 
-    //    @Autowired
-//    protected void configureGlobal(AuthenticationManagerBuilder authenticationMgr) throws Exception {
-//        authenticationMgr.inMemoryAuthentication()
-//                .withUser("admin").password("admin").authorities("ROLE_ADMIN");
-//    }
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -54,6 +54,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/").permitAll()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/register").permitAll()
+                .antMatchers("/process-register").permitAll()
+                .antMatchers("/register-success").permitAll()
+                .antMatchers("/index").permitAll()
                 .antMatchers("ui/users/**").hasRole("USER")
                 .antMatchers("ui/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
@@ -61,24 +64,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/login")
                 .failureUrl("/login-error")
-//                .loginProcessingUrl("/")
-//                .defaultSuccessUrl("/register")
                 .permitAll()
                 .successHandler(successHandler)
                 .and()
                 .logout().permitAll()
                 .and()
-                .exceptionHandling().accessDeniedPage("/register");
+                .exceptionHandling().accessDeniedPage("/login");
     }
-
-//    @Override
-//    public void configure(WebSecurity web) throws Exception {
-//
-//        web.ignoring().antMatchers("/resources/**", "/login/**", "/static/**", "/Script/**", "/Style/**", "/Icon/**",
-//                "/js/**", "/vendor/**", "/bootstrap/**", "/Image/**");
-//
-//        //logoutSuccessUrl("/customLogout")
-//    }
 
     @Bean
     public UserDetailsManager userDetailsManager() {
@@ -86,23 +78,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         jdbcUserDetailsManager.setDataSource(dataSource);
         return jdbcUserDetailsManager;
     }
-
-//    @Bean
-//    @Override
-//    public UserDetailsService userDetailsService() {
-//        UserDetails user =
-//                User.withUsername("user")
-//                        .password(passwordEncoder().encode("user"))
-//                        .roles("USER")
-//                        .build();
-//        UserDetails admin =
-//                User.withUsername("admin")
-//                        .password(passwordEncoder().encode("admin"))
-//                        .roles("ADMIN")
-//                        .build();
-//
-//        return new InMemoryUserDetailsManager(user, admin);
-//    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {

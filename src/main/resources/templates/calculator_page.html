@@ -1,45 +1,72 @@
 <!DOCTYPE html>
-<html lang="en">
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+lang="en">
 <head>
-    <title>Bootstrap Example</title>
-    <meta charset="utf-8">
+    <title>W3.CSS Template</title>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="/static/css/calculator_page.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+    html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
+    .w3-sidebar {
+      z-index: 3;
+      width: 250px;
+      top: 43px;
+      bottom: 0;
+      height: inherit;
+    }
+    .h4-logg-out{
+     padding-top: 12px;
+     padding-bottom: 12px;
+     text-align: center;
+    }
+    </style>
 </head>
 <body>
 
-<nav class="navbar navbar-inverse navbar">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#">WebSiteName</a>
-        </div>
-        <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li><a href="#">Page 1-1</a></li>
-                    <li><a href="#">Page 1-2</a></li>
-                    <li><a href="#">Page 1-3</a></li>
-                </ul>
-            </li>
-            <li><a href="/calculator">Page 2</a></li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-            <li><a href="/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-            <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-        </ul>
+<!-- Navbar -->
+<div class="w3-top" sec:authorize="isAuthenticated()">
+    <div class="w3-bar w3-theme w3-top w3-left-align w3-large">
+        <a class="w3-bar-item w3-button w3-right w3-hide-large w3-hover-white w3-large w3-theme-l1" href="javascript:void(0)" onclick="w3_open()"><i class="fa fa-bars"></i></a>
+        <a th:href="@{/}" class="w3-bar-item w3-button w3-theme-l1">Home</a>
+        <a th:href="@{/about}" class="w3-bar-item w3-button w3-hide-small w3-hover-white">About</a>
+        <a th:href="@{/calculator}" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Price</a>
+        <a th:href="@{/contact}" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Contact</a>
+        <a th:href="@{/register}" class="w3-bar-item w3-button w3-hide-small w3-hide-medium w3-hover-white w3-right">Sign Up</a>
+        <a th:href="@{/login}" class="w3-bar-item w3-button w3-hide-small w3-hide-medium w3-hover-white w3-right">Login</a>
+        <a th:href="@{/logout}" class="w3-bar-item w3-button w3-hide-small w3-hide-medium w3-hover-white w3-right">Log Out</a>
     </div>
+</div>
+<h4 th:if="${logout}" class="error h4-logg-out">You have been successfully logged out!</h4>
+<!-- Sidebar -->
+<nav class="w3-sidebar w3-bar-block w3-collapse w3-large w3-theme-l5 w3-animate-left" id="mySidebar">
+    <a href="javascript:void(0)" onclick="w3_close()" class="w3-right w3-xlarge w3-padding-large w3-hover-black w3-hide-large" title="Close Menu">
+        <i class="fa fa-remove"></i>
+    </a>
+    <h4 class="w3-bar-item"><b>Menu</b></h4>
+    <a class="w3-bar-item w3-button w3-hover-black" href="#">Link</a>
+    <a class="w3-bar-item w3-button w3-hover-black" href="#">Link</a>
+    <a class="w3-bar-item w3-button w3-hover-black" href="#">Link</a>
+    <a class="w3-bar-item w3-button w3-hover-black" href="#">Link</a>
 </nav>
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- Main content: shift it to the right by 250 pixels when the sidebar is visible -->
+<div class="w3-main" style="margin-left:250px">
 <table id="customers">
     <tr>
         <th>Price</th>
         <th>Name of service</th>
         <th>Select</th>
     </tr>
-    <tr th:each="service: ${services}">
+    <tr th:each="service: ${product}">
         <td th:text="${service.price}">Price</td>
         <td th:text="${service.nameOfService}">Name of service</td>
         <td input type="checkbox" id="myCheck" onclick="myFunction()"></td>

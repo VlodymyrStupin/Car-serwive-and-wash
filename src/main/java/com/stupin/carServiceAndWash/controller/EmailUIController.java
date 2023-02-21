@@ -6,11 +6,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class EmailSenderController {
+public class EmailUIController {
     private final EmailSenderService emailSenderService;
 
     @Autowired
-    public EmailSenderController(EmailSenderService emailSenderService) {
+    public EmailUIController(EmailSenderService emailSenderService) {
         this.emailSenderService = emailSenderService;
     }
 
