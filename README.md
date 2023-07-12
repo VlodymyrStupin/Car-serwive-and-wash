@@ -49,7 +49,7 @@ and profitability of a car repair business.
 
 ## Tech
 
-Car Service is developed using following technologies: <br>
+Car Service and wash is developed using following technologies: <br>
 
 Core: <br>
 ![Java](https://img.shields.io/badge/17-Java-orange?style=for-the-badge) &nbsp;
